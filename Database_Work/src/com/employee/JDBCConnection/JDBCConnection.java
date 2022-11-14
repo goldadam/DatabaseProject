@@ -1,23 +1,30 @@
 package com.employee.JDBCConnection;
 
+import com.sun.source.tree.StatementTree;
+
 import java.sql.*;
 
 public class JDBCConnection {
     private static final String url = "jdbc:mysql://localhost:3306/";
     private static final String user = "root";
     private static final String password = "tlswlsdn12!@";
-    private Connection conn;
+
+    private Connection conn = null;
 
 
-    public static void getConnection() throws SQLException {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            System.out.println("Database 연결 실패함");
-            e.printStackTrace();
-        }
-    }
+//    public static void getConnection() throws SQLException {
+//        Connection conn = null;
+//        Statement stmt = null;
+//        try {
+//            conn = DriverManager.getConnection(url, user, password);
+//            stmt = conn.createStatement();
+//        } catch (Exception e) {
+//            System.out.println("Database 연결 실패함");
+//            e.printStackTrace();
+//        }
+//        stmt.close();
+//        conn.close();
+//    }
     public void Connect(){
         try{
             conn = DriverManager.getConnection(url, user, password);
@@ -76,5 +83,8 @@ public class JDBCConnection {
                 conn = null;
             }
         }
+    }
+    public Connection getConnection(){
+        return conn;
     }
 }

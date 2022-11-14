@@ -17,8 +17,8 @@ public class printSelectedEmployee {
 
             dbCon.Connect();
             ArrayList<String> ssnList = new ArrayList<>();
-            String query = firstAdd + " WHERE Dname = ?";
-            PreparedStatement stmt = JDBCConnection.getConnection().prepareStatement(query);
+            String query = firstAdd + "WHERE Dname = ? ";
+            PreparedStatement stmt = dbCon.getConnection().prepareStatement(query);
             stmt.setString(1, s);
 
             ResultSet rs = stmt.executeQuery();

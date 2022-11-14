@@ -14,7 +14,7 @@ public class selectEmployeeAndUpdate {
             dbCon.Connect();
 
             String query = "UPDATE EMPLOYEE SET" + s + " = ? WHERE Ssn = ?";
-            PreparedStatement stmt = JDBCConnection.getConnection().createStatement();
+            PreparedStatement stmt = dbCon.getConnection().prepareStatement(query);
             stmt.setString(1, data);
             stmt.setString(2, ssn);
 

@@ -13,7 +13,6 @@ public class Employee_Management {
 
 
     public static void main(String[] args) throws SQLException {
-        JDBCConnection.getConnection();
 
     }
     public static void runSQL(Connection conn) throws SQLException, DataNotFoundException {

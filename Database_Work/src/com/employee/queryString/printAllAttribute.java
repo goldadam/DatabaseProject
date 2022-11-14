@@ -2,9 +2,7 @@ package com.employee.queryString;
 
 import com.employee.JDBCConnection.JDBCConnection;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,11 +11,12 @@ public class printAllAttribute {
     public List<String> showAllAttr(Model model, boolean[] isSelected){ //아직 GUI단에서 어떻게 받을 지 안정함./.
         try{
             JDBCConnection dbCon = new JDBCConnection();
+            Connection conn = DriverManager.getConnection("url" + "user" + "parameter");
 
             dbCon.Connect();
             ArrayList<String> ssnList = new ArrayList<>();
-            Statement stmt = JDBCConnection.getConnection().createStatement();
             String query = "SELECT * FROM (EMPLOYEE E LEFT OUTER JOIN EMPLOYEE S ON E.Super_ssn = S.Ssn) JOIN DEPARTMENT ON E.Dno = Dnumber";
+            Statement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery(query);
 
             while(rs.next()){

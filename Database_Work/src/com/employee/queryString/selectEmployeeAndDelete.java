@@ -3,36 +3,89 @@ package com.employee.queryString;
 import com.employee.JDBCConnection.JDBCConnection;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class selectEmployeeAndDelete {
-    public void insertEmpIntoTable(String F,String M, String L, String Ssn, String B, String A, String Sex, String sal, String S_ssn, String Dno){
-        String[] arr = new String[]{"F", "M", "L", "Ssn", "B", "A", "Sex", "sal", "S_ssn", "Dno"};
+    public void DeleteEmp(String ssn){
+        try{
+            DeleteDependent(ssn);
+            DeleteWorksOn(ssn);
 
+            JDBCConnection db = new JDBCConnection();
+            db.Connect();
+
+            String query = "DELETE FROM EMPLOYEE WHERE Ssn = ?";
+
+            PreparedStatement stmt = db.getConnection().prepareStatement(query);
+            stmt.setString(1, ssn);
+
+            stmt.executeUpdate();
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            db.close(stmt, stmt.getConnection());
+        } catch (SQLException e) {
+            System.out.println("DELETE문에 에러 발생");
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    public void DeleteWorksOn(String ssn){
         try{
             JDBCConnection db = new JDBCConnection();
             db.Connect();
 
-            String query = "INSERT INTO EMPLOYEE (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Super_ssn, Dno" +
-                    "values(?,?,?,?,?,?,?,?,?,?)";
+            String query = "DELETE FROM WORKS_ON WHERE ESsn = ?";
 
-            PreparedStatement stmt = db.Connect().prepareStatement(query);
-            for(int i=1;i<=10;i++){
-                stmt.setString(i, arr[i]);
-            }
+            PreparedStatement stmt = db.getConnection().prepareStatement(query);
+            stmt.setString(1, ssn);
+
             stmt.executeUpdate();
 
-            if(stmt!=null){
-                try{
+            if (stmt != null) {
+                try {
                     stmt.close();
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            db.close(stmt, stmt.getConnection()); //디비 설정 세팅 나중에 바꿔줘야됨
+            db.close(stmt, stmt.getConnection());
         } catch (SQLException e) {
+            System.out.println("WORKS_ON DELETE문에 에러 발생");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
-    //추가시 중복값 제거 코드 구현해야됨
+    public void DeleteDependent(String ssn){
+        try{
+            JDBCConnection db = new JDBCConnection();
+            db.Connect();
+
+            String query = "DELETE FROM DEPENDENT WHERE Essn = ?";
+
+            PreparedStatement stmt = db.getConnection().prepareStatement(query);
+            stmt.setString(1, ssn);
+
+            stmt.executeUpdate();
+
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            db.close(stmt, stmt.getConnection());
+        } catch (SQLException e) {
+            System.out.println("DEPENDENT DELETE문에 에러 발생");
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }
