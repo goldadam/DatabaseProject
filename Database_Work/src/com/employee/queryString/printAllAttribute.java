@@ -1,16 +1,15 @@
 package com.employee.queryString;
 
-import com.employee.JDBCConnection.JDBCConnection;
+import com.employee.JDBCConnection.JdbcConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class printAllAttribute {
     public List<String> showAllAttr(Model model, boolean[] isSelected){ //아직 GUI단에서 어떻게 받을 지 안정함./.
         try{
-            JDBCConnection dbCon = new JDBCConnection();
+            JdbcConnection dbCon = new JdbcConnection();
             Connection conn = DriverManager.getConnection("url" + "user" + "parameter");
 
             dbCon.Connect();

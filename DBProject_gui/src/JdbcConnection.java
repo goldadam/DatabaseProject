@@ -1,30 +1,13 @@
-package com.employee.JDBCConnection;
-
 import java.sql.*;
 
 public class JdbcConnection {
-    private static final String url = "jdbc:mysql://localhost:3306/PROJECT";
-    private static final String user = "root";
-    private static final String password = "tlswlsdn12!@";
-
     private Connection conn = null;
 
-
-//    public static void getConnection() throws SQLException {
-//        Connection conn = null;
-//        Statement stmt = null;
-//        try {
-//            conn = DriverManager.getConnection(url, user, password);
-//            stmt = conn.createStatement();
-//        } catch (Exception e) {
-//            System.out.println("Database 연결 실패함");
-//            e.printStackTrace();
-//        }
-//        stmt.close();
-//        conn.close();
-//    }
     public void Connect(){
         try{
+            final String url = "jdbc:mysql://localhost:3306/PROJECT";
+            final String user = "root";
+            final String password = "tlswlsdn12!@";
             conn = DriverManager.getConnection(url, user, password);
             System.out.println("DB 연결이 완료되었습니다.");
         }catch (SQLException e){
@@ -33,7 +16,7 @@ public class JdbcConnection {
         }
     }
 
-    public void close(Statement stmt, Connection conn){
+    public void close(PreparedStatement stmt, Connection conn){
         if(stmt != null){
             try{
                 if(!stmt.isClosed()) stmt.close();
@@ -53,7 +36,7 @@ public class JdbcConnection {
             }
         }
     }
-    public static void close(ResultSet rs, Statement stmt, Connection conn){
+    public static void close(ResultSet rs, PreparedStatement stmt, Connection conn){
         if(rs != null){
             try{
                 if(!rs.isClosed()) rs.close();

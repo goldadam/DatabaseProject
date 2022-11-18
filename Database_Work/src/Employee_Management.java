@@ -1,11 +1,6 @@
-import com.employee.JDBCConnection.JDBCConnection;
 import com.exception.DataNotFoundException;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
-import java.util.logging.Logger;
-import java.util.*;
-import java.io.*;
 
 import static java.sql.DriverManager.getConnection;
 

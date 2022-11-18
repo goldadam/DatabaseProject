@@ -1,6 +1,3 @@
-package com.employee.queryString;
-
-import com.employee.JDBCConnection.JdbcConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
